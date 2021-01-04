@@ -1,7 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Link, Route, BrowserRouter as Router, Switch, useLocation } from 'react-router-dom';
+import { Link, Route, BrowserRouter as Router, Switch, useLocation, RouteComponentProps, useRouteMatch, NavLink } from 'react-router-dom';
+import { Button } from 'antd';
 
 interface AppProps {}
 
@@ -28,6 +29,12 @@ const NoMatch = () => {
   )
 }
 
+
+const HogeButton = (props: RouteComponentProps<any>) => {
+  console.log(props)
+  return <Button type="ghost" {...props}  / >
+}
+
 function App({}: AppProps) {
   return (
     <div className="App">
@@ -52,6 +59,12 @@ function App({}: AppProps) {
           <nav>
             <ul>
               <li>
+                <Link to="/home">
+                  <Button type="primary">ho</Button>
+                </Link>
+                <Button type="primary">
+                  <Link to="/home">Home True</Link>
+                </Button>
                 <Link to="/">Home</Link>
               </li>
               <li>
@@ -59,6 +72,9 @@ function App({}: AppProps) {
               </li>
               <li>
                 <Link to="/users">Users</Link>
+              </li>
+              <li>
+                <NavLink to={{ pathname: '/nav', state: { hoge: true } }} component={HogeButton} activeClassName="disabled">Hoge</NavLink>
               </li>
             </ul>
           </nav>
